@@ -6,8 +6,8 @@ import App from './components/App'
 console.log('HEllO WORLD')
 
 ReactDOM.render(
-  <>
-    <App />
-  </>,
+  <div>
+    hei
+  </div>,
   document.getElementById('app')
 )
