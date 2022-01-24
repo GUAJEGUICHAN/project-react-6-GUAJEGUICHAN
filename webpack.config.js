@@ -18,6 +18,13 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  resolve: {
+    alias: {
+      components: path.resolve(__dirname, 'src/components'),
+    },
+    extensions: ['.js', '.jsx'],
+  },
+
   devServer: {
     port: 9000,
   },
