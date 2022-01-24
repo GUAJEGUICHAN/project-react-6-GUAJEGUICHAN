@@ -1,0 +1,42 @@
+{
+  "name": "project-react-6-guajeguichan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GUAJEGUICHAN/project-react-6-GUAJEGUICHAN.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GUAJEGUICHAN/project-react-6-GUAJEGUICHAN/issues"
+  },
+  "homepage": "https://github.com/GUAJEGUICHAN/project-react-6-GUAJEGUICHAN#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "babel-loader": "^8.2.3",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "html-webpack-plugin": "^5.5.0",
+    "process": "^0.11.10",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.3"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
