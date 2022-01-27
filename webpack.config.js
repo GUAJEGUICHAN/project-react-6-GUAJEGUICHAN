@@ -27,6 +27,8 @@ module.exports = {
 
   devServer: {
     port: 9000,
+    // historyApiFallback: false,
+    historyApiFallback: { index: "/", disableDotRule: true },
   },
   plugins: [
     new HtmlWebpackPlugin({

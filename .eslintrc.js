@@ -20,6 +20,9 @@ module.exports = {
     'react',
     '@typescript-eslint',
   ],
+  globals: {
+    context: 'readonly',
+  },
   rules: {
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
     "import/extensions": [
