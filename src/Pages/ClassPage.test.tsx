@@ -4,7 +4,7 @@ import { fireEvent, render } from '@testing-library/react';
 
 import { BrowserRouter, useNavigate } from 'react-router-dom';
 
-import ButtonsForCheckPage from './ButtonsForCheckPage';
+import ClassPage from './ClassPage';
 
 jest.mock('react-router-dom', () => {
   const originalModule = jest.requireActual('react-router-dom');
@@ -13,21 +13,22 @@ jest.mock('react-router-dom', () => {
     __esModule: true,
     ...originalModule,
     useNavigate: jest.fn(),
+    useParams: jest.fn(() => ({ grade: 1 })),
   };
 });
 
-test('ButtonsForCheckPage', () => {
+test('ClassPage', () => {
   const navigate = jest.fn();
 
   (useNavigate as jest.Mock).mockImplementation(() => navigate);
 
   const { getByText } = render(
     <BrowserRouter>
-      <ButtonsForCheckPage />
+      <ClassPage />
     </BrowserRouter>,
   );
 
-  getByText('ButtonsForCheckPage');
+  getByText('ClassPage');
 
   fireEvent.click(getByText('1'));
 
