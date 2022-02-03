@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { useParams } from 'react-router-dom';
+import { get } from '../utils';
 
 type Member = {
   id: number,
@@ -50,21 +52,27 @@ export default function StudentsListPage() {
 
   const [members, setMembers] = useState(initialMembers);
 
+  const memebers = useSelector(state => ({
+    members
+  }))
+
   function handleClick(member: Member) {
     let editedDates;
+
     if (member.attendedDates.includes(theDateOfToday)) {
       editedDates = member.attendedDates.filter((date) => date !== theDateOfToday);
     } else {
       editedDates = [...member.attendedDates, theDateOfToday];
     }
+
     const otherMembers = members.filter((otherMember) => otherMember.id !== member.id);
 
     setMembers(
       [...otherMembers,
-        {
-          ...member,
-          attendedDates: editedDates,
-        },
+      {
+        ...member,
+        attendedDates: editedDates,
+      },
       ].sort((a, b) => a.id - b.id),
     );
   }
