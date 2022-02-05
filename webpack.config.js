@@ -1,42 +1,65 @@
-// webpack needs to be explicitly required
-const webpack = require('webpack')
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx|ts|tsx)?$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
-      },
-    ],
-  },
-  mode: 'none',
-  entry: './src/index.tsx',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  resolve: {
-    alias: {
-      components: path.resolve(__dirname, 'src/components'),
-    },
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+const config = {
+  entry: './src/index.jsx',
+  mode: 'developement',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+  },
   devServer: {
-    port: 9000,
-    // historyApiFallback: false,
-    historyApiFallback: { index: "/", disableDotRule: true },
+    port: 8080,
+    open: true,
+    host: '0.0.0.0',
+    historyApiFallback: {
+      index: '/index.html',
+    },
+
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // index.html 템플릿을 기반으로 빌드 결과물을 추가해줌
       template: 'index.html',
     }),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
+
+    // Add your plugins here
+    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    // alias: {
+    //   '@mui/styled-engine': '@mui/styled-engine-sc'
+    // },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/i,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: 'asset',
+      },
+
+      // Add your rules for custom modules here
+      // Learn more about loaders from https://webpack.js.org/loaders/
+    ],
+  },
+};
+
+module.exports = () => {
+  if (isProduction) {
+    config.mode = 'production';
+
+    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+  } else {
+    config.mode = 'development';
+  }
+  return config;
 };
