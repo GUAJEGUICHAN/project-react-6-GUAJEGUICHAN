@@ -1,11 +1,29 @@
-import React from "react"
+import React from 'react';
 
-import { fireEvent, render } from "@testing-library/react"
+import context from 'jest-plugin-context';
 
-import { App } from "./App"
+import { render } from '@testing-library/react';
 
-test('App', () => {
-  const { container } = render(<App />)
+import { MemoryRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-  expect(container).toHaveTextContent('App')
-})
+import App from './App';
+
+jest.mock('react-redux');
+
+describe('App', () => {
+  useSelector.mockImplementation((selector) => selector({
+    date: '220205',
+  }));
+  context("at '/'", () => {
+    it('renders HomePage', () => {
+      const { container } = render(
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>,
+      );
+
+      expect(container).toHaveTextContent('HomePage');
+    });
+  });
+});

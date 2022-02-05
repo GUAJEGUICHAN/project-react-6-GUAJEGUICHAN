@@ -1,8 +1,16 @@
-import * as React from 'react'
-import ReactDom from 'react-dom'
+import * as React from 'react';
+import ReactDom from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import App from './components/App';
 
-ReactDom.render(<div>
-  <div>안뇽</div>
-</div>,
-  document.getElementById('app')
-)
+import store from './store';
+
+ReactDom.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('app'),
+);
