@@ -15,8 +15,8 @@ const Container = styled.div`
   flex-direction:column;
   align-content:center;
 `;
-const ButtonContainer = styled.div`
 
+const ButtonContainer = styled.div`
 `;
 
 export default function CheckPage() {

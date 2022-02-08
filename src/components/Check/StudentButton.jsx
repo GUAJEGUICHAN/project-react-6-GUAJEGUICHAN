@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import styled from '@emotion/styled';
 
-import { checkId } from '../slice';
+import { checkId } from '../../slice';
 
 const unselected = {
   light: '#f8ffd7',
@@ -28,17 +28,16 @@ function StudentButton({ children, member }) {
   font-family: IBM Plex Sans, sans-serif;
   font-weight: bold;
   font-size: 0.875rem;
-  background-color: ${member.checkedToady ? green.light : unselected.light};
+  background-color: ${member.checkedToday ? green.light : unselected.light};
   padding: 12px 24px;
   border: 3px solid ${unselected.primary};
   border-radius: 8px;
-  /* color: ${member.checkedToady ? 'dark' : 'white'} ; */
   color: 'dark';
   transition: all 150ms ease;
   cursor: pointer;
 
   &:hover {
-    background-color: ${member.checkedToady ? green.primary : unselected.primary};  
+    background-color: ${member.checkedToday ? green.primary : unselected.primary};  
   }
 
   &.${buttonUnstyledClasses.active} {

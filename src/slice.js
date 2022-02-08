@@ -13,8 +13,15 @@ export const { actions, reducer } = createSlice({
     },
     theNumberOfMembers: undefined,
     members,
-    checkedId: [
-    ],
+    checkedId: [],
+    addMemberField: {
+      name: '',
+      gradeNumber: '',
+      classNumber: '',
+      isStudent: true,
+      checkedToday: true,
+    },
+    errorMessage: [],
   },
   reducers: {
     setDate: (state, { payload: date }) => ({
@@ -25,7 +32,7 @@ export const { actions, reducer } = createSlice({
       ...state,
       members: state.members.map((member) => ({
         ...member,
-        checkedToady: state.checkedId.includes(member.id),
+        checkedToday: state.checkedId.includes(member.id),
       })),
     }),
     checkId: (state, { payload: member }) => {
@@ -34,12 +41,12 @@ export const { actions, reducer } = createSlice({
       if (state.checkedId.includes(member.id)) {
         checkedId = state.checkedId.filter((id) => id !== member.id);
       } else {
-        checkedId = [...state.checkedId, member.id];
+        checkedId = [member.id, ...state.checkedId];
       }
 
       const checkedMembers = state.members.map((one) => ({
         ...one,
-        checkedToady: !!checkedId.includes(one.id),
+        checkedToday: !!checkedId.includes(one.id),
       }));
 
       return {
@@ -48,12 +55,77 @@ export const { actions, reducer } = createSlice({
         checkedId,
       };
     },
+    changeAddMemberField: (state, { payload: { name, value } }) => ({
+      ...state,
+      addMemberField: {
+        ...state.addMemberField,
+        [name]: value,
+      },
+    }),
+    clearAddMemberField: (state) => ({
+      ...state,
+      addMemberField: {
+        ...state.addMemberField,
+        name: '',
+        gradeNumber: '',
+        classNumber: '',
+      },
+    }),
+    addMember: (state) => {
+      let errorMessage = [];
+
+      if (state.addMemberField.name === '') {
+        errorMessage = [...errorMessage, 'name blank'];
+      }
+
+      if (state.addMemberField.gradeNumber === '') {
+        errorMessage = [...errorMessage, 'gradeNumber blank'];
+      }
+
+      if (state.addMemberField.classNumber === '') {
+        errorMessage = [...errorMessage, 'classNumber blank'];
+      }
+
+      state.members.forEach((member) => {
+        if (member.name === state.addMemberField.name
+          && member.gradeNumber === state.addMemberField.gradeNumber
+          && member.classNumber === state.addMemberField.classNumber
+        ) {
+          errorMessage = [...errorMessage, 'duplicated'];
+        }
+      });
+      if (errorMessage.length > 0) {
+        return {
+          ...state,
+          errorMessage,
+        };
+      }
+
+      return {
+        ...state,
+        members: [
+          ...state.members,
+          {
+            ...state.addMemberField,
+            id: state.members.length + 1,
+          },
+        ],
+        checkedId: state.addMemberField.checkedToday
+          ? [(state.members.length + 1), ...state.checkedId]
+          : state.checkedId,
+        errorMessage: [],
+      };
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
-  setDate, initiateChecks, checkId,
+  setDate,
+  initiateChecks,
+  checkId,
+  changeAddMemberField,
+  clearAddMemberField,
+  addMember,
 } = actions;
 
 export default reducer;

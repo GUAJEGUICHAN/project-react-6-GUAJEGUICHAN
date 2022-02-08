@@ -6,6 +6,9 @@ import reducer, {
   setDate,
   initiateChecks,
   checkId,
+  addMember,
+  changeAddMemberField,
+  clearAddMemberField,
 } from './slice';
 
 describe('slice', () => {
@@ -17,6 +20,8 @@ describe('slice', () => {
     theNumberOfMembers: undefined,
     members: given.members,
     checkedId: given.checkedId,
+    addMemberField: given.addMemberField,
+    errorMessage: [],
   }));
 
   describe('setDate', () => {
@@ -34,7 +39,7 @@ describe('slice', () => {
       name: '이승만',
       gradeNumber: 1,
       classNumber: 1,
-      checkedToady: undefined,
+      checkedToday: true,
     }]));
 
     context('checkedId includes the id', () => {
@@ -43,7 +48,7 @@ describe('slice', () => {
       it('checkedToday turns true', () => {
         const state = reducer(given.initialState, initiateChecks);
 
-        expect(state.members[0].checkedToady).toBe(true);
+        expect(state.members[0].checkedToday).toBe(true);
       });
     });
     context('checkId doesn`t include the id', () => {
@@ -51,7 +56,7 @@ describe('slice', () => {
       it('checkedToday turns false', () => {
         const state = reducer(given.initialState, initiateChecks);
 
-        expect(state.members[0].checkedToady).toBe(false);
+        expect(state.members[0].checkedToday).toBe(false);
       });
     });
   });
@@ -63,7 +68,7 @@ describe('slice', () => {
       name: '이승만',
       gradeNumber: 1,
       classNumber: 1,
-      checkedToady: undefined,
+      checkedToday: true,
     }));
     given('notCheckedMember', () => ({
       id: 2,
@@ -71,7 +76,7 @@ describe('slice', () => {
       name: '윤보선',
       gradeNumber: 1,
       classNumber: 1,
-      checkedToady: undefined,
+      checkedToday: undefined,
     }));
     given('members', () => ([
       given.checkedMember,
@@ -93,6 +98,139 @@ describe('slice', () => {
         const state = reducer(given.initialState, checkId(given.notCheckedMember));
 
         expect(state.checkedId.includes(given.notCheckedMember.id)).toBe(true);
+      });
+    });
+  });
+
+  describe('changeAddMemberField', () => {
+    it('change name ', () => {
+      const state = reducer(given.initialState, changeAddMemberField({ name: 'name', value: '이승만' }));
+      expect(state.addMemberField.name).toBe('이승만');
+    });
+  });
+
+  describe('clearAddMemberField', () => {
+    it('clear addMemberField', () => {
+      const state = reducer(given.initialState, clearAddMemberField());
+
+      expect(state.addMemberField.name).toBe('');
+      expect(state.addMemberField.gradeNumber).toBe('');
+      expect(state.addMemberField.classNumber).toBe('');
+    });
+  });
+
+  describe('addMember', () => {
+    given('checkedId', () => []);
+
+    given('addMemberField', () => (
+      {
+        name: '',
+        gradeNumber: '',
+        classNumber: '',
+        isStudent: true,
+        checkedToday: true,
+      }));
+
+    given('members', () => ([{
+      id: 1,
+      isStudent: true,
+      name: '이승만',
+      gradeNumber: 1,
+      classNumber: 1,
+      checkedToday: undefined,
+    }]));
+
+    context('has all info for adding a member', () => {
+      given('addMemberField', () => (
+        {
+          name: '박성일',
+          gradeNumber: '1',
+          classNumber: '1',
+          isStudent: true,
+          checkedToday: true,
+        }));
+      it('1 of the number of the members increases to 2', () => {
+        const state = reducer(given.initialState, addMember());
+
+        expect(state.members.length).toBe(2);
+      });
+    });
+
+    context('addMemberFeild has had checkedToday true', () => {
+      given('addMemberField', () => (
+        {
+          ...given.addMemberFeild,
+          checkedToday: true,
+        }));
+      it('checkedId`length increases to 1', () => {
+        const state = reducer(given.initialState, addMember);
+
+        expect(state.checkedId.length).toBe(1);
+      });
+    });
+
+    context('addMemberFeild has had checkedToday true', () => {
+      given('addMemberField', () => (
+        {
+          ...given.addMemberFeild,
+          checkedToday: false,
+        }));
+      it('checkedId`length stay 0', () => {
+        const state = reducer(given.initialState, addMember);
+
+        expect(state.checkedId.length).toBe(0);
+      });
+    });
+    context('has the same member on the list', () => {
+      given('addMemberField', () => ({
+        name: '이승만',
+        gradeNumber: 1,
+        classNumber: 1,
+        isStudent: true,
+        checkedToday: true,
+      }));
+      it('get `duplicated` errorMessage', () => {
+        const state = reducer(given.initialState, addMember());
+        expect(state.errorMessage.includes('duplicated')).not.toBeNull();
+      });
+    });
+    context('has the name textbox empty', () => {
+      given('addMemberField', () => ({
+        name: '',
+        gradeNumber: 1,
+        classNumber: 1,
+        isStudent: true,
+        checkedToday: true,
+      }));
+      it('get `name blank` errorMessage', () => {
+        const state = reducer(given.initialState, addMember());
+        expect(state.errorMessage.includes('name blank'));
+      });
+    });
+    context('has the gradeNumber textbox empty', () => {
+      given('addMemberField', () => ({
+        name: '이승만',
+        gradeNumber: '',
+        classNumber: 1,
+        isStudent: true,
+        checkedToday: true,
+      }));
+      it('get `gradeNumber blank` errorMessage', () => {
+        const state = reducer(given.initialState, addMember());
+        expect(state.errorMessage.includes('gradeNumber blank'));
+      });
+    });
+    context('has the classNumber textbox empty', () => {
+      given('addMemberField', () => ({
+        name: '이승만',
+        gradeNumber: 1,
+        classNumber: '',
+        isStudent: true,
+        checkedToday: true,
+      }));
+      it('get `classNumber blank` errorMessage', () => {
+        const state = reducer(given.initialState, addMember());
+        expect(state.errorMessage.includes('classNumber blank'));
       });
     });
   });

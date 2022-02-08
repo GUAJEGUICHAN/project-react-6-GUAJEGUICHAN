@@ -21,13 +21,13 @@ describe('StudentButton', () => {
     name: '이승만',
     gradeNumber: 1,
     classNumber: 1,
-    checkedToady: undefined,
+    checkedToday: undefined,
   };
 
   context('has notCheckedMember', () => {
     given('notCheckedMember', () => ({
       ...member,
-      checkedToady: false,
+      checkedToday: false,
     }));
 
     it('renders well', () => {
@@ -46,7 +46,7 @@ describe('StudentButton', () => {
   context('has checkedMember', () => {
     given('checkedMember', () => ({
       ...member,
-      checkedToady: true,
+      checkedToday: true,
     }));
 
     it('renders well', () => {

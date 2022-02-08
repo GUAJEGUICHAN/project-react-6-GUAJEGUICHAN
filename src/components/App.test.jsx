@@ -23,7 +23,7 @@ describe('App', () => {
         </MemoryRouter>,
       );
 
-      expect(container).toHaveTextContent('HomePage');
+      expect(container).toHaveTextContent('출석체크');
     });
   });
 });
