@@ -11,7 +11,7 @@ import ClassContainer from './ClassContainer';
 jest.mock('react-router-dom');
 
 describe('ClassContainer', () => {
-  context('', () => {
+  context('get classNumber', () => {
     it('ClassContainer', () => {
       useOutletContext.mockReturnValue({ 1: [1, 2, 3] });
       useParams.mockReturnValue({ gradeNumber: 1 });

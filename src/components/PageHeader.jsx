@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
-import { AiFillHome } from 'react-icons/ai';
+import { AiFillHome, AiOutlineRollback } from 'react-icons/ai';
 
 const Header = styled.h1`
-  margin:0 1em;
+  margin:0;
+  padding:0.5em 1em;
   display:flex;
   justify-content:space-between;
 `;
@@ -25,7 +26,7 @@ export default function PageHeader({ children }) {
   return (
     <Header>
       <Span data-testid="goBack" onClick={goBack}>
-        <AiFillHome />
+        <AiOutlineRollback />
       </Span>
       <Span>
         {children}

@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import styled from '@emotion/styled';
-import StudentButton from '../StudentButton';
+
+import StudentButton from './StudentButton';
 
 const H2 = styled.h2`
   text-align:center;
@@ -17,8 +18,8 @@ export default function StudentsContainer() {
   const { members } = useSelector((state) => ({
     members: state.members.filter(
       (member) => (
-        member.gradeNumber === Number(gradeNumber)
-        && member.classNumber === Number(classNumber)
+        Number(member.gradeNumber) === Number(gradeNumber)
+        && Number(member.classNumber) === Number(classNumber)
       ),
     ),
   }));
@@ -42,12 +43,6 @@ export default function StudentsContainer() {
             >
               {member.name}
             </StudentButton>
-            // <NavigateButton
-            //   key={member.name}
-            //   to="#"
-            // >
-            //   {member.name}
-            // </NavigateButton>
           ),
         )
       }

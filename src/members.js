@@ -4,28 +4,28 @@ const members = [{
   name: '이승만',
   gradeNumber: 1,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 }, {
   id: 2,
   isStudent: true,
   name: '윤보선',
   gradeNumber: 1,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 }, {
   id: 3,
   isStudent: true,
   name: '박정희',
   gradeNumber: 1,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 }, {
   id: 4,
   isStudent: true,
   name: '최규하',
   gradeNumber: 1,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 5,
@@ -33,7 +33,7 @@ const members = [{
   name: '전두환',
   gradeNumber: 2,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 6,
@@ -41,7 +41,7 @@ const members = [{
   name: '노태우',
   gradeNumber: 2,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 7,
@@ -49,7 +49,7 @@ const members = [{
   name: '김영삼',
   gradeNumber: 3,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 8,
@@ -57,7 +57,7 @@ const members = [{
   name: '김대중',
   gradeNumber: 3,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 9,
@@ -65,7 +65,7 @@ const members = [{
   name: '노무현',
   gradeNumber: 3,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 10,
@@ -73,7 +73,7 @@ const members = [{
   name: '이명박',
   gradeNumber: 3,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 {
   id: 11,
@@ -81,7 +81,7 @@ const members = [{
   name: '박근혜',
   gradeNumber: 3,
   classNumber: 1,
-  checkedToady: undefined,
+  checkedToday: undefined,
 },
 ];
 
